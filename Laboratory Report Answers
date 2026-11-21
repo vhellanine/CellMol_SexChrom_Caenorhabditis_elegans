@@ -1,0 +1,76 @@
+# Laboratory Report Answers
+## Sex-Chromosome Dosage in *Caenorhabditis elegans*
+
+### 1. What animal species was selected, and what is its sex chromosome system? What evidence supports this?
+
+The selected species was *Caenorhabditis elegans*, commonly known as the roundworm. It has an **XX/XO sex-determination system**, in which XX individuals are hermaphrodites and XO individuals are males. Unlike the conventional XX/XY system, this species does not have a Y chromosome. The sex of an individual is determined primarily by the number of X chromosomes relative to the autosomal complement.
+
+The species was selected because it has a well-established genome, a chromosome-level reference assembly, publicly available whole-genome sequencing data, and a relatively small genome that is manageable for genomic analysis using Galaxy and R.
+
+### 2. What assembly and WGS data were used? Were they obtained from the same biological sample?
+
+The reference genome used in the analysis was the *Caenorhabditis elegans* assembly **GCF_000002985.6**, named **WBcel235**. The whole-genome sequencing reads used for analysis were obtained from SRA run **SRR28207401**, associated with BioSample **SAMN40240730**.
+
+The reference assembly and sequencing reads were obtained from separate records and were not confirmed to originate from the same biological sample. Therefore, the analysis involved mapping the WGS reads to a reference genome rather than using a matched assembly and sequencing dataset from the same individual.
+
+| Data | Accession / Information |
+|---|---|
+| Species | *Caenorhabditis elegans* |
+| Assembly accession | GCF_000002985.6 |
+| Assembly name | WBcel235 |
+| Assembly BioSample | Not listed/available in the assembly record used |
+| WGS run accession | SRR28207401 |
+| WGS BioSample | SAMN40240730 |
+| Same donor | No / not confirmed |
+
+### 3. Which chromosomes were included in the analysis, and how were they classified?
+
+Six chromosome sequences were included in the analysis: the five autosomes (chromosomes I–V) and the X chromosome. The chromosome identifiers were obtained from the reference assembly and used to classify each chromosome in the `chromosome_groups.csv` file.
+
+The five autosomes were assigned to group `A`, while the X chromosome was assigned to group `X`.
+
+| Chromosome | Sequence ID | Group |
+|---|---|---|
+| Chromosome I | NC_003279.8 | A |
+| Chromosome II | NC_003280.10 | A |
+| Chromosome III | NC_003281.10 | A |
+| Chromosome IV | NC_003282.8 | A |
+| Chromosome V | NC_003283.11 | A |
+| Chromosome X | NC_003284.9 | X |
+
+The chromosome coverage data were obtained using Samtools coverage in Galaxy. The mean depth values of the five autosomes were used to calculate the median autosomal depth, while the mean depth of chromosome X was used to calculate the X-to-autosome ratio.
+
+### 4. What was the median autosomal depth, X chromosome depth, and X-to-autosome ratio? What was the dosage interpretation?
+
+The analysis produced a median autosomal sequencing depth of **9.6404** and an X chromosome depth of **10.3521**. The X-to-autosome ratio was calculated by dividing the X chromosome depth by the median autosomal depth.
+
+\[
+\text{X:A ratio}=\frac{10.3521}{9.6404}=1.073825
+\]
+
+The calculated ratio was approximately **1.07**, indicating that the X chromosome had sequencing coverage comparable to the autosomes. Based on the classroom dosage interpretation thresholds, this value is consistent with an **XX-like X chromosome dosage pattern**, because it is greater than the two-copy-like threshold of 0.80.
+
+| Measurement | Result |
+|---|---:|
+| Median autosomal depth | 9.6404 |
+| X chromosome depth | 10.3521 |
+| X-to-autosome ratio | 1.073825 |
+| Dosage interpretation | XX-like |
+
+The observed ratio is higher than the expected ideal value of approximately 1.0, but it remains within the interpretation category consistent with two-copy-like X chromosome dosage.
+
+### 5. Does the dosage result agree with the sex information in the sequencing BioSample?
+
+The calculated X-to-autosome ratio of 1.073825 suggests an XX-like dosage pattern, indicating approximately two copies of the X chromosome relative to the autosomal sequencing depth.
+
+However, the dosage result should not be treated as definitive confirmation of the biological sex of the sequenced individual unless the sex information recorded in the BioSample metadata is verified and compared with the result. The analysis provides genomic evidence based on sequencing coverage, while the BioSample metadata provides the recorded biological sample information.
+
+Therefore, the result supports an XX-like dosage pattern, but the biological sex of the individual should be interpreted alongside the original BioSample metadata.
+
+### 6. Why is chromosome-level genome assembly information alone insufficient to determine sex-chromosome dosage?
+
+A reference genome assembly provides information about the chromosome sequences and their organization, but it does not necessarily represent the actual chromosome dosage of a particular sequenced individual. A reference assembly may contain chromosome sequences from a selected reference specimen, may be represented differently depending on the assembly strategy, or may include sequences that do not directly reflect the number of chromosomes present in the WGS sample being analyzed.
+
+To estimate sex-chromosome dosage, whole-genome sequencing reads from a biological sample must be mapped to the reference genome. The sequencing depth of the sex chromosome is then compared with the depth of the autosomes. This comparison provides evidence about the relative chromosome dosage of the sequenced sample.
+
+In this study, the X-to-autosome depth ratio was used to estimate X chromosome dosage. The resulting ratio of 1.073825 was consistent with an XX-like dosage pattern. Nevertheless, sequencing depth can be affected by mapping quality, sequencing bias, genomic regions with different coverage, sample differences, and reference assembly characteristics. Therefore, chromosome dosage inference based on sequencing coverage should be interpreted as an estimate rather than absolute proof of the individual's sex chromosome composition.
